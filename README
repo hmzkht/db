@@ -1,0 +1,14 @@
+Relation columns MUST be in all caps.
+Selection ONLY works with conditions of the form a=5 or a=asdf. Basically, operators are not implemented.
+	In addition, if strings are stored in the file with quotes around them (like in biz), then you need to put quotes around the string in the selection as well.
+	For example, SELECT name FROM biz WHERE state=tx; will NOT work. SELECT name FROM biz WHERE state='tx'; will work.
+	
+When projecting multiple columns, there must not be any spaces between the column names.
+	For example, SELECT a,b,c FROM tbl WHERE d=5; will work, but SELECT a, b, c FROM tbl WHERE d=5; will NOT work.
+  
+  Keeps track of #rows, #blocks, and #distinct values for indexed columns. Use the INFO; command to display these stats.
+	Please note that #blocks is rounded down, so tables that do not take up at least 1 block on disk will show as having 0 blocks.
+	You may have to run the REFRESH; command to see the results of insertions on the info.
+  
+  DISTINCT works, but only for single column projections. 
+	ie. select distinct x from table where a=b; will work, but select distinct x,y from table where a=b; wil not.
