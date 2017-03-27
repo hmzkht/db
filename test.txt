@@ -1,0 +1,103 @@
+CREATE TABLE usert ( idusr primary, name, lastname, phone, grp key, income);
+CREATE TABLE usert ( idusr primary, name, lastname, phone, grp key, income);
+CREATE TABLE usert ( idusr key, name, lastname, phone, grp key, income);
+CREATE TABLE usert ( idusr , name, lastname, phone, grp, income );
+CREATE TABLE usert ( usr , name, lastname, phone, grp, income );
+
+CREATE TABLE typer ( idgrp primary, descr, val );
+CREATE TABLE typer ( idgrp key, descr, val );
+
+CREATE TABLE area ( idarea primary, city, code );
+CREATE TABLE area ( idarea key, city, code );
+
+INSERT INTO usert VALUES ( 1  , Arthur , Zuniga , 123 , 5, 1000 );
+INSERT INTO usert VALUES ( 2  , Bree , Yunez , 234 , 3, 2000 );
+INSERT INTO usert VALUES ( 3  , Carl , Xochitl , 963 , 2, 4000 );
+INSERT INTO usert VALUES ( 6  , Drake , Walters , 123 , 5, 1000 );
+INSERT INTO usert VALUES ( 10 , Ellen , Vick , 234 , 1, 3000 );
+INSERT INTO usert VALUES ( 13 , Fred , Unger , 963 , 2, 4000 );
+INSERT INTO usert VALUES ( 5  , Gus , Tebow , 123 , 5, 1000 );
+INSERT INTO usert VALUES ( 9  , Hector , Straus , 234 , 3, 2000 );
+INSERT INTO usert VALUES ( 4  , Izzie , Ritz , 963 , 2, 4000 );
+INSERT INTO usert VALUES ( 7  , Joe , Qui , 123 , 5, 1000 );
+INSERT INTO usert VALUES ( 11 , Kris , Plitz , 234 , 3, 2000 );
+INSERT INTO usert VALUES ( 8  , Lou , Ortiz , 963 , 2, 4000 );
+INSERT INTO usert VALUES ( 12 , Monte , Nook , 123 , 5, 1000 );
+INSERT INTO usert VALUES ( 20 , Nancy , Martin , 234 , 3, 2000 );
+INSERT INTO usert VALUES ( 15 , Oscar , Lehman , 789 , 2, 4000 );
+INSERT INTO usert VALUES ( 14 , Peter , Klose , 123 , 5, 1000 );
+INSERT INTO usert VALUES ( 16 , Quincy , Jones , 234 , 3, 2000 );
+INSERT INTO usert VALUES ( 17 , Robert , Iverson , 963 , 2, 4000 );
+INSERT INTO usert VALUES ( 18 , Sam , Heelman , 123 , 5, 1000 );
+INSERT INTO usert VALUES ( 21 , Tim , Glock , 234 , 3, 2000 );
+INSERT INTO usert VALUES ( 19 , Ursula , Felix , 963 , 2, 4000 );
+INSERT INTO usert VALUES ( 22 , Vero , Everton , 123 , 5, 1000 );
+INSERT INTO usert VALUES ( 32 , Walt , Doe , 234 , 3, 2000 );
+INSERT INTO usert VALUES ( 43 , Xin , Coon , 963 , 2, 4000 );
+INSERT INTO usert VALUES ( 31 , Yao , Bane , 123 , 5, 1000 );
+INSERT INTO usert VALUES ( 25 , Zolt , Arti , 234 , 3, 2000 );
+INSERT INTO usert VALUES ( 30 , Andrea , Zuniga , 963 , 2, 4000 );
+INSERT INTO usert VALUES ( 61 , Brenda , Klose , 123 , 5, 1000 );
+INSERT INTO usert VALUES ( 29 , Carla , Xochitl , 234 , 3, 2000 );
+INSERT INTO usert VALUES ( 39 , Daniel , Xochitl , 963 , 2, 4000 );
+
+INSERT INTO typer VALUES ( 1  , Group 1, 10 );
+INSERT INTO typer VALUES ( 2  , Group 2, 20 );
+INSERT INTO typer VALUES ( 3  , Group 3, 30 );
+INSERT INTO typer VALUES ( 4  , Group 4, 40 );
+INSERT INTO typer VALUES ( 5  , Group 5, 50 );
+
+INSERT INTO area VALUES ( 1  , Alburquerque, 123 );
+INSERT INTO area VALUES ( 2  , Boston, 963 );
+INSERT INTO area VALUES ( 3  , Carmel, 234 );
+
+select name,lastname,phone,city from usert,area where phone = code;
+select name,lastname,grp,descr from usert,typer where grp = idgrp;
+select usert.name, usert.lastname, usert.grp, typer.descr from usert, typer where usert.grp = typer.idgrp;
+select name, lastname, grp, descr from usert JOIN typer on grp = idgrp;
+select usert.name, usert.lastname, usert.grp, typer.descr from usert JOIN typer on usert.grp = typer.idgrp;
+
+select name,state,city from biz where state = OH;
+select grp, count(idusr) as cnt from usert group by grp;
+select count(idusr) as cnt, grp from usert where income = 1000 group by grp;
+select grp, avg(income) as avgr from usert group by grp;
+select avg(income) as avgr, grp from usert where income = 1000 group by grp;
+select name, lastname, grp from usert where grp in (select idgrp from typer where val >35);
+select name, lastname, grp from usert where grp in (2,3);
+select idusr, name, lastname from usert order by idusr;
+select idusr, name, lastname from usert order by income;
+select distinct state from biz;
+select distinct phone from usert;
+
+CREATE TABLE grouper ( idgrps primary key, descr, val );
+
+INSERT INTO grouper VALUES ( 1  , Team 11, 20 );
+INSERT INTO grouper VALUES ( 2  , Team 22, 30 );
+INSERT INTO grouper VALUES ( 3  , Team 33, 10 );
+
+select typer.desc, grouper.descr from typer, grouper where typer.val =  grouper.val;
+
+--- HW6 ---
+SELECT name,lastname,phone FROM usert WHERE lastname = Xochitl and phone = 963;
+SELECT name,lastname,phone FROM usert WHERE lastname = Zuniga and idusr = 30;
+SELECT name,lastname,phone FROM usert WHERE (lastname = Zuniga) and (idusr = 30);
+SELECT name,lastname,phone FROM usert WHERE lastname = Klose ;
+SELECT name,lastname,phone FROM usert WHERE grp = 3 ;
+SELECT name,lastname,phone FROM usert WHERE idusr = 3 ;
+SELECT name,lastname,phone FROM usert WHERE idusr = 3 and grp = 2;
+SELECT name,lastname,phone FROM usert WHERE (idusr = 3) and (grp = 2);
+
+--- HW4 ---
+SELECT idusr,phone FROM usert WHERE idusr = 2 ;
+SELECT idusr,name,lastname FROM usert WHERE idusr = 2 ;
+SELECT idusr,name,lastname FROM usert WHERE idusr < 4 ;
+SELECT idusr , name , lastname FROM usert WHERE idusr > 2 ;
+SELECT idusr , name , lastname FROM usert WHERE idusr <> 2 ;
+SELECT idusr , name , lastname , idusr + phone AS data FROM usert WHERE lastname = Doe ;
+SELECT idusr , name , lastname , idusr - phone AS data FROM usert WHERE lastname = Doe ;
+SELECT idusr , name , lastname , idusr * phone AS data FROM usert WHERE lastname = Doe ;
+SELECT idusr , name , lastname , idusr / phone AS data FROM usert WHERE lastname = Doe ;
+SELECT idusr , name , lastname , (idusr + phone) AS data FROM usert WHERE lastname = Doe ;
+SELECT idusr , name , lastname , (idusr - phone) AS data FROM usert WHERE lastname = Doe ;
+SELECT idusr , name , lastname , (idusr * phone) AS data FROM usert WHERE lastname = Doe ;
+SELECT idusr , name , lastname , (idusr / phone) AS data FROM usert WHERE lastname = Doe ;
